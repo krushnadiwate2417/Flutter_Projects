@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:quizzer/screens/home_screen.dart";
-import "package:quizzer/widgets/exam_category.dart";
+import "package:quizzer/screens/tabs.dart";
+
 void main(){
   runApp(const MyApp());
 }
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return MaterialApp(
-      home: HomeScreen(),
+      home: Tabs(),
       debugShowCheckedModeBanner: false,
     );
   }

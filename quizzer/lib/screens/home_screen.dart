@@ -9,19 +9,7 @@ class HomeScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-        title: Text("Quizzer",style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 30,
-          letterSpacing: 3,
-        ),),
-        toolbarHeight: 80.0,
-      ),
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -47,16 +35,6 @@ class HomeScreen extends StatelessWidget{
                ExamCategory()
             ],
           ),
-      ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize: 30,selectedItemColor: Colors.amberAccent[400],
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home",backgroundColor: Colors.deepPurple,),
-          BottomNavigationBarItem(icon: Icon(Icons.menu_book_sharp),label: "Prepare",backgroundColor: Colors.deepPurple,),
-          BottomNavigationBarItem(icon: Icon(Icons.history),label: "History",backgroundColor: Colors.deepPurple,),
-          BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined),label: "Profile",backgroundColor: Colors.deepPurple,),
-        ]),
-    );
+      );
   }
 }
