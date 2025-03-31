@@ -9,9 +9,7 @@ import 'package:meals_app/providers/filters_provider.dart';
 
 
 class FilterScreen extends ConsumerWidget{
-   FilterScreen({super.key});
-   final ValueNotifier<int> counter = ValueNotifier<int>(0);
-
+   const FilterScreen({super.key});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -22,11 +20,10 @@ class FilterScreen extends ConsumerWidget{
         title: Text("Your Filters"),
         actions: [
           IconButton(onPressed: (){
-            filterInProvider[FiltersApplied.glutenFree] = false;
-            filterInProvider[FiltersApplied.lactoseFree] = false;
-            filterInProvider[FiltersApplied.vegetarien] = false;
-            filterInProvider[FiltersApplied.vegan] = false;
-            counter.value++;
+            ref.watch(filtersProvider.notifier).setFilters(FiltersApplied.glutenFree, false);
+            ref.watch(filtersProvider.notifier).setFilters(FiltersApplied.lactoseFree, false);
+            ref.watch(filtersProvider.notifier).setFilters(FiltersApplied.vegetarien, false);
+            ref.watch(filtersProvider.notifier).setFilters(FiltersApplied.vegan, false);
           }, icon: Icon(Icons.restart_alt_rounded))
         ],
       ),
@@ -38,19 +35,14 @@ class FilterScreen extends ConsumerWidget{
       //     ));
       //   }
       // }),
-      body: ValueListenableBuilder(
-        valueListenable: counter, 
-        builder: (ctx,value,child){
-          return Column(
+      body:  Column(
           children: [
             FiltersSwitch(initValue: filterInProvider[FiltersApplied.glutenFree]!, filterWhichIsChosen: FiltersApplied.glutenFree, titleString: "Gluten-Free",),
             FiltersSwitch(initValue: filterInProvider[FiltersApplied.lactoseFree]!, filterWhichIsChosen: FiltersApplied.lactoseFree, titleString: "Lactose-Free",),
             FiltersSwitch(initValue: filterInProvider[FiltersApplied.vegetarien]!, filterWhichIsChosen: FiltersApplied.vegetarien, titleString: "Vegitarien", ),
             FiltersSwitch(initValue: filterInProvider[FiltersApplied.vegan]!, filterWhichIsChosen: FiltersApplied.vegan, titleString: "Vegan",)
           ],
-        );
-        }
         )
-      );
+        );
   }
 }

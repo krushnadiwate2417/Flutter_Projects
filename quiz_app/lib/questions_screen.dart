@@ -4,10 +4,11 @@ import 'package:quiz_app/answer_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Questions extends StatefulWidget{
-  Questions({super.key,required this.onSelectAnswer});
+  const Questions({super.key,required this.onSelectAnswer});
 
   final void Function(String answer) onSelectAnswer;
 
+  @override
   State<Questions> createState(){
     return _FlutterQuestions();
   }
