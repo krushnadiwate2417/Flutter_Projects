@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list/data/dummy_items.dart';
+import 'package:shopping_list/models/grocery_item.dart';
 import 'package:shopping_list/widgets/new_item.dart';
 
 class Home extends StatefulWidget{
   const Home({super.key});
+
+
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  void _addItem(){
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>NewItem()));
+    final List<GroceryItem> groceryItemsDynamic = [];
+  void _addItem()async{
+            final result = await Navigator.of(context)
+                .push(MaterialPageRoute(builder: (ctx)=>NewItem()));
+            if(result == null) return;  
+            setState(() {
+              groceryItemsDynamic.add(result);
+            });
+            
           }
 
   @override
@@ -26,15 +36,34 @@ class _HomeState extends State<Home> {
           IconButton(onPressed: _addItem, icon: Icon(Icons.add,color: Colors.white,))
         ],
       ),
-      body: ListView.builder(
-        itemCount: groceryItems.length,
+      body: groceryItemsDynamic.isEmpty?
+       Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('!! List is Empty !!',
+        style: TextStyle(fontSize: 40),
+       ),
+       const SizedBox(height: 10,),
+       Text('Try Adding Some Items...',
+        style: TextStyle(fontSize: 20),
+       )
+        ],
+       ),) 
+      : ListView.builder(
+        itemCount: groceryItemsDynamic.length,
         itemBuilder: (ctx,index)=>
-           ListTile(
-            title: Text(groceryItems[index].name),
-            leading: Container(width: 24,height: 24,color:groceryItems[index].category.color ,),
-            trailing: Text('${groceryItems[index].quantity}',style: TextStyle(
-              fontSize: 15
-            ),),
+           Dismissible(
+            onDismissed: (val){
+              
+            },
+            key: ValueKey(index),
+             child: ListTile(
+              title: Text(groceryItemsDynamic[index].name),
+              leading: Container(width: 24,height: 24,color:groceryItemsDynamic[index].category.color ,),
+              trailing: Text('${groceryItemsDynamic[index].quantity}',style: TextStyle(
+                fontSize: 15
+              ),),
+             ),
            )
         )
     );
